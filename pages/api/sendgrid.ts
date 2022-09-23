@@ -33,8 +33,7 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
               <p>${req.body.message}</p>
               <br>
               </div>
-              <img src="/logo.svg class="logo-image" style="height: 50px;width: 50px;border-radius: 5px;overflow: hidden;">
-              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Best<br>Chris<br>Found of SmarTours<br>4077444284</p>
+              <p class="footer" style="font-size: 16px;padding-bottom: 20px;border-bottom: 1px solid #D1D5DB;">Kind Regards,<br>Chris<br>Found of SmarTours<br>4077444284</p>
               <div class="footer-links" style="display: flex;justify-content: center;align-items: center;">
                 <a href="https://manuarora.in/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Website</a>
                 <a href="https://manuarora.in/blog/" style="text-decoration: none;margin: 8px;color: #9CA3AF;">Blog</a>
@@ -48,10 +47,9 @@ async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
       </body>
       </html>`,
     });
-  } catch (error) {
-    // console.log(error);
-    // return res.status(error.statusCode || 500).json({ error: error.message });
-    return res.status(500);
+  } catch (error: any) {
+    console.log(error);
+    return res.status(error.statusCode || 500).json({ error: error.message });
   }
 
   return res.status(200).json({ error: "" });

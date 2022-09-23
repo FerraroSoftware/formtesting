@@ -15,29 +15,36 @@ export default function ContactUs() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailureMessage, setShowFailureMessage] = useState(false);
 
-  const handleValidation = () => {
-    let tempErrors = {};
+  const handleValidation = (): boolean => {
+    // let tempErrors = {};
+    console.log("handleValidation");
+    let tempErrors = new Map<string, boolean>();
     let isValid = true;
 
-    // if (fullname.length <= 0) {
-    //   tempErrors["fullname"] = true;
-    //   isValid = false;
-    // }
-    // if (email.length <= 0) {
-    //   tempErrors["email"] = true;
-    //   isValid = false;
-    // }
-    // if (subject.length <= 0) {
-    //   tempErrors["subject"] = true;
-    //   isValid = false;
-    // }
-    // if (message.length <= 0) {
-    //   tempErrors["message"] = true;
-    //   isValid = false;
-    // }
+    if (fullname.length <= 0) {
+      // tempErrors["fullname"] = true;
+      tempErrors.set("fullname", true);
+      isValid = false;
+    }
+    if (email.length <= 0) {
+      // tempErrors["email"] = true;
+      tempErrors.set("email", true);
+      isValid = false;
+    }
+    if (subject.length <= 0) {
+      // tempErrors["subject"] = true;
+      tempErrors.set("subject", true);
+      isValid = false;
+    }
+    if (message.length <= 0) {
+      // tempErrors["message"] = true;
+      tempErrors.set("message", true);
+      isValid = false;
+    }
 
     setErrors({ ...tempErrors });
     console.log("errors", errors);
+    console.log(isValid);
     return isValid;
   };
 
@@ -47,6 +54,7 @@ export default function ContactUs() {
     let isValidForm = handleValidation();
 
     if (isValidForm) {
+      console.log("sending");
       setButtonText("Sending");
       const res = await fetch("/api/sendgrid", {
         body: JSON.stringify({
